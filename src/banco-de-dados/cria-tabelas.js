@@ -1,16 +1,16 @@
 const criaTabelaUsuarios = `
   CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    deleted_at TIMESTAMP NULL
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    deleted_at TIMESTAMP NULL DEFAULT NULL
   );
 `;
 
 const criaTabelaPerguntas = `
   CREATE TABLE IF NOT EXISTS perguntas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    descricao TEXT NOT NULL,
+    descricao TEXT(100) NOT NULL,
     deleted_at TIMESTAMP NULL
   );
 `;
@@ -19,7 +19,7 @@ const criaTabelaPerguntaOpcoes = `
   CREATE TABLE IF NOT EXISTS pergunta_opcoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_pergunta INT,
-    descricao TEXT NOT NULL,
+    descricao TEXT(100) NOT NULL,
     pontos INT NOT NULL,
     deleted_at TIMESTAMP NULL,
     FOREIGN KEY (id_pergunta) REFERENCES perguntas(id)
@@ -61,10 +61,3 @@ export async function criarTabelas(conexao) {
   console.log("Sincronização finalizada.");
 }
 
-/* 
-    O campo deleted_at foi adicionado em todas as tabelas para implementar o softdelete. Quando este campo é NULL, o registro é considerado ativo. Quando contém um timestamp, 
-    o registro é considerado "deletado".
-    As chaves estrangeiras foram mantidas conforme solicitado.
-    A tabela quest_respondidas usa TIMESTAMP DEFAULT CURRENT_TIMESTAMP para datahorainicio para automaticamente registrar o momento de início.
-    datahorafim na tabela quest_respondidas é inicialmente NULL e pode ser atualizado quando o questionário for finalizado.
-*/

@@ -5,21 +5,29 @@ export class Validacoes {
     this.repositorio = repositorio;
   }
 
-  // Validações para Usuários
-  async validarUsuario(nome, email) {
+  async validarCriacaoUsuario(nome, email) {
     const schema = Yup.object().shape({
-      nome: Yup.string().min(3, 'Nome deve ter no mínimo 3 caracteres').required('Nome é obrigatório'),
-      email: Yup.string().email('Email inválido').required('Email é obrigatório')
+      nome: Yup.string()
+        .required('Nome é obrigatório')
+        .matches(/^[a-zA-ZÀ-ÿ\s]+$/, 'Nome deve conter apenas letras, espaços e acentos')
+        .max(100, 'Nome deve ter no máximo 100 caracteres'),
+      email: Yup.string()
+        .required('Email é obrigatório')
+        .email('Email inválido')
+        .max(100, 'Email deve ter no máximo 100 caracteres')
     });
 
     try {
       await schema.validate({ nome, email }, { abortEarly: false });
-      return [];
+      return { nome, email };
     } catch (error) {
-      return error.errors;
+      const errors = {};
+      error.inner.forEach((err) => {
+        errors[err.path] = err.message;
+      });
+      return { errors };
     }
   }
-
   // Validações para Perguntas
   async validarPergunta(descricao) {
     const schema = Yup.object().shape({

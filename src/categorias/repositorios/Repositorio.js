@@ -1,28 +1,18 @@
-import { conexaoMySql } from "../../banco-de-dados/conexaomysql.js"; 
+import { conexaoMySql, getConexao } from "../../banco-de-dados/conexaomysql.js";
+
+// Inicializa a conexão MySQL
+conexaoMySql();
 
 class Repositorio {
-  constructor() {
-    this.connection = null; 
-  }
-
-  async getConexao() {
-    this.connection = await conexaoMySql.getConexao(); 
-    return this.connection; 
-  }
-
   // Usuários CRUD
 
   // C - Create
   async criarUsuario(nome, email) {
-    if (!nome || !email) {
-      throw new Error('Nome e email são obrigatórios');
-    }
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
-    const query = 'INSERT INTO usuarios (nome, email) VALUES (?, ?)';
-
+    const connection = await getConexao();
+    const query = 'INSERT INTO usuarios (nome, email) VALUES (?, ?)'; // Corrigido
     try {
-      const [result] = await this.connection.query(query, [nome, email]);
-      await this.connection.release();
+      const [result] = await connection.query(query, [nome, email]); // Passando os valores corretamente
+      await connection.release();
       return result.insertId;
     } catch (erro) {
       console.error('Erro ao criar usuário:', erro);
@@ -32,12 +22,11 @@ class Repositorio {
 
   // R - Read
   async buscarUsuarioPorId(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM usuarios WHERE id = ? AND deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query, [id]);
-      await this.connection.release();
+      const [rows] = await connection.query(query, [id]);
+      await connection.release();
       return rows[0];
     } catch (erro) {
       console.error('Erro ao buscar usuário por ID:', erro);
@@ -47,12 +36,11 @@ class Repositorio {
 
   // R - Read - ALL
   async buscarTodosUsuarios() {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM usuarios WHERE deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query);
-      await this.connection.release();
+      const [rows] = await connection.query(query);
+      await connection.release();
       return rows;
     } catch (erro) {
       console.error('Erro ao buscar todos os usuários:', erro);
@@ -62,12 +50,11 @@ class Repositorio {
 
   // U - Update
   async atualizarUsuario(id, nome, email) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'UPDATE usuarios SET nome = ?, email = ? WHERE id = ? AND deleted_at IS NULL';
-
     try {
-      await this.connection.query(query, [nome, email, id]);
-      await this.connection.release();
+      await connection.query(query, [nome, email, id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao atualizar usuário:', erro);
       throw erro;
@@ -76,12 +63,11 @@ class Repositorio {
 
   // D - Delete (Soft Delete - atualiza deleted_at)
   async deletarUsuario(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'UPDATE usuarios SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?';
-
     try {
-      await this.connection.query(query, [id]);
-      await this.connection.release();
+      await connection.query(query, [id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao deletar usuário:', erro);
       throw erro;
@@ -92,15 +78,11 @@ class Repositorio {
 
   // C - Create
   async criarPergunta(descricao) {
-    if (!descricao) {
-      throw new Error('Descrição da pergunta é obrigatória');
-    }
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'INSERT INTO perguntas (descricao) VALUES (?)';
-
     try {
-      const [result] = await this.connection.query(query, [descricao]);
-      await this.connection.release();
+      const [result] = await connection.query(query, [descricao]);
+      await connection.release();
       return result.insertId;
     } catch (erro) {
       console.error('Erro ao criar pergunta:', erro);
@@ -110,12 +92,11 @@ class Repositorio {
 
   // R - Read
   async buscarPerguntaPorId(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM perguntas WHERE id = ? AND deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query, [id]);
-      await this.connection.release();
+      const [rows] = await connection.query(query, [id]);
+      await connection.release();
       return rows[0];
     } catch (erro) {
       console.error('Erro ao buscar pergunta por ID:', erro);
@@ -125,12 +106,11 @@ class Repositorio {
 
   // R - Read - ALL
   async buscarTodasPerguntas() {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM perguntas WHERE deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query);
-      await this.connection.release();
+      const [rows] = await connection.query(query);
+      await connection.release();
       return rows;
     } catch (erro) {
       console.error('Erro ao buscar todas as perguntas:', erro);
@@ -140,12 +120,11 @@ class Repositorio {
 
   // U - Update
   async atualizarPergunta(id, descricao) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'UPDATE perguntas SET descricao = ? WHERE id = ? AND deleted_at IS NULL';
-
     try {
-      await this.connection.query(query, [descricao, id]);
-      await this.connection.release();
+      await connection.query(query, [descricao, id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao atualizar pergunta:', erro);
       throw erro;
@@ -154,12 +133,11 @@ class Repositorio {
 
   // D - Delete (Soft Delete - atualiza deleted_at)
   async deletarPergunta(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'UPDATE perguntas SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?';
-
     try {
-      await this.connection.query(query, [id]);
-      await this.connection.release();
+      await connection.query(query, [id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao deletar pergunta:', erro);
       throw erro;
@@ -170,15 +148,11 @@ class Repositorio {
 
   // C - Create
   async criarOpcao(id_pergunta, descricao, pontos) {
-    if (!id_pergunta || !descricao || !pontos) {
-      throw new Error('ID da pergunta, descrição e pontos são obrigatórios');
-    }
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'INSERT INTO pergunta_opcoes (id_pergunta, descricao, pontos) VALUES (?, ?, ?)';
-
     try {
-      const [result] = await this.connection.query(query, [id_pergunta, descricao, pontos]);
-      await this.connection.release();
+      const [result] = await connection.query(query, [id_pergunta, descricao, pontos]);
+      await connection.release();
       return result.insertId;
     } catch (erro) {
       console.error('Erro ao criar opção:', erro);
@@ -188,29 +162,25 @@ class Repositorio {
 
   // R - Read
   async buscarOpcaoPorId(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM pergunta_opcoes WHERE id = ? AND deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query, [id]);
-      await this.connection.release();
-      // Retorne um array, mesmo que contenha apenas um elemento
-      return rows; 
+      const [rows] = await connection.query(query, [id]);
+      await connection.release();
+      return rows[0];
     } catch (erro) {
       console.error('Erro ao buscar opção por ID:', erro);
       throw erro;
     }
   }
 
-
   // R - Read - ALL
   async buscarTodasOpcoes() {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM pergunta_opcoes WHERE deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query);
-      await this.connection.release();
+      const [rows] = await connection.query(query);
+      await connection.release();
       return rows;
     } catch (erro) {
       console.error('Erro ao buscar todas as opções:', erro);
@@ -220,12 +190,11 @@ class Repositorio {
 
   // U - Update
   async atualizarOpcao(id, opcao) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'UPDATE pergunta_opcoes SET descricao = ?, pontos = ? WHERE id = ? AND deleted_at IS NULL';
-
     try {
-      await this.connection.query(query, [opcao.descricao, opcao.pontos, id]);
-      await this.connection.release();
+      await connection.query(query, [opcao.descricao, opcao.pontos, id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao atualizar opção:', erro);
       throw erro;
@@ -234,12 +203,11 @@ class Repositorio {
 
   // D - Delete (Soft Delete - atualiza deleted_at)
   async deletarOpcao(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'UPDATE pergunta_opcoes SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?';
-
     try {
-      await this.connection.query(query, [id]);
-      await this.connection.release();
+      await connection.query(query, [id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao deletar opção:', erro);
       throw erro;
@@ -250,15 +218,11 @@ class Repositorio {
 
   // C - Create
   async criarQuestRespondida(id_usuario) {
-    if (!id_usuario) {
-      throw new Error('ID do usuário é obrigatório');
-    }
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
-    const query = 'INSERT INTO quest_respondidas (id_usuario, datahorainicio) VALUES (?, CURRENT_TIMESTAMP)';
-
+    const connection = await getConexao();
+    const query = 'INSERT INTO quest_respondidas (id_usuario, datahorainicio) VALUES (?, NOW())';
     try {
-      const [result] = await this.connection.query(query, [id_usuario]);
-      await this.connection.release();
+      const [result] = await connection.query(query, [id_usuario]);
+      await connection.release();
       return result.insertId;
     } catch (erro) {
       console.error('Erro ao criar questionário respondido:', erro);
@@ -268,12 +232,11 @@ class Repositorio {
 
   // R - Read
   async buscarQuestRespondidaPorId(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM quest_respondidas WHERE id = ? AND deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query, [id]);
-      await this.connection.release();
+      const [rows] = await connection.query(query, [id]);
+      await connection.release();
       return rows[0];
     } catch (erro) {
       console.error('Erro ao buscar questionário respondido por ID:', erro);
@@ -283,12 +246,11 @@ class Repositorio {
 
   // R - Read - ALL
   async buscarTodosQuestRespondidas() {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM quest_respondidas WHERE deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query);
-      await this.connection.release();
+      const [rows] = await connection.query(query);
+      await connection.release();
       return rows;
     } catch (erro) {
       console.error('Erro ao buscar todos os questionários respondidos:', erro);
@@ -298,10 +260,10 @@ class Repositorio {
 
   // U - Update (Finalizar questionário)
   async finalizarQuestionario(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = `
       UPDATE quest_respondidas 
-      SET datahorafim = CURRENT_TIMESTAMP,
+      SET datahorafim = NOW(),
           pontuacao = (
             SELECT SUM(po.pontos)
             FROM respostas r
@@ -311,8 +273,8 @@ class Repositorio {
       WHERE id = ? AND deleted_at IS NULL
     `;
     try {
-      await this.connection.query(query, [id, id]);
-      await this.connection.release();
+      await connection.query(query, [id, id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao finalizar questionário:', erro);
       throw erro;
@@ -321,12 +283,11 @@ class Repositorio {
 
   // D - Delete (Soft Delete - atualiza deleted_at)
   async deletarQuestRespondida(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'UPDATE quest_respondidas SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?';
-
     try {
-      await this.connection.query(query, [id]);
-      await this.connection.release();
+      await connection.query(query, [id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao deletar questionário respondido:', erro);
       throw erro;
@@ -337,15 +298,11 @@ class Repositorio {
 
   // C - Create
   async criarResposta(id_quest, id_opcao) {
-    if (!id_quest || !id_opcao) {
-      throw new Error('ID do questionário e ID da opção são obrigatórios');
-    }
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'INSERT INTO respostas (id_quest, id_opcao) VALUES (?, ?)';
-
     try {
-      const [result] = await this.connection.query(query, [id_quest, id_opcao]);
-      await this.connection.release();
+      const [result] = await connection.query(query, [id_quest, id_opcao]);
+      await connection.release();
       return result.insertId;
     } catch (erro) {
       console.error('Erro ao criar resposta:', erro);
@@ -355,12 +312,11 @@ class Repositorio {
 
   // R - Read
   async buscarRespostaPorId(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM respostas WHERE id = ? AND deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query, [id]);
-      await this.connection.release();
+      const [rows] = await connection.query(query, [id]);
+      await connection.release();
       return rows[0];
     } catch (erro) {
       console.error('Erro ao buscar resposta por ID:', erro);
@@ -370,12 +326,11 @@ class Repositorio {
 
   // R - Read - ALL
   async buscarTodasRespostas() {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'SELECT * FROM respostas WHERE deleted_at IS NULL';
-
     try {
-      const [rows] = await this.connection.query(query);
-      await this.connection.release();
+      const [rows] = await connection.query(query);
+      await connection.release();
       return rows;
     } catch (erro) {
       console.error('Erro ao buscar todas as respostas:', erro);
@@ -385,12 +340,11 @@ class Repositorio {
 
   // U - Update
   async atualizarResposta(id, id_opcao) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'UPDATE respostas SET id_opcao = ? WHERE id = ? AND deleted_at IS NULL';
-
     try {
-      await this.connection.query(query, [id_opcao, id]);
-      await this.connection.release();
+      await connection.query(query, [id_opcao, id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao atualizar resposta:', erro);
       throw erro;
@@ -399,12 +353,11 @@ class Repositorio {
 
   // D - Delete (Soft Delete - atualiza deleted_at)
   async deletarResposta(id) {
-    await this.getConexao(); // Chama getConexao() antes de usar a conexão
+    const connection = await getConexao();
     const query = 'UPDATE respostas SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?';
-
     try {
-      await this.connection.query(query, [id]);
-      await this.connection.release();
+      await connection.query(query, [id]);
+      await connection.release();
     } catch (erro) {
       console.error('Erro ao deletar resposta:', erro);
       throw erro;
@@ -413,6 +366,3 @@ class Repositorio {
 }
 
 export default Repositorio;
-
-
-

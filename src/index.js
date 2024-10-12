@@ -3,11 +3,6 @@ import router from "./categorias/rotas/Rotas.js";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function run() {
   const app = express();
@@ -28,12 +23,11 @@ async function run() {
         },
       ],
     },
-    apis: [path.join(__dirname, './categorias/rotas/Rotas.js')], // caminho para o arquivo de rotas
-    type: 'module'
+    apis: ['./categorias/rotas/Rotas.js'], // caminho para o arquivo de rotas
   };
 
   const specs = swaggerJsdoc(options);
- 
+
   // Middleware para permitir CORS
   app.use(cors());
 
@@ -46,10 +40,9 @@ async function run() {
   // Rota para a documentação Swagger
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
- 
-  // Rota raiz
+  // Redireciona para a documentação Swagger
   app.get("/", (req, res) => {
-    res.send("Seja bem-vindo à API de Questionário. Acesse /api-docs para a documentação.");
+    res.redirect("/api-docs");
   });
 
   // Usar as rotas definidas em Rotas.js
@@ -72,11 +65,11 @@ async function run() {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
     console.log(`Documentação Swagger disponível em http://localhost:${PORT}/api-docs`);
   });
-  
 }
 
 run().catch((erro) => {
   console.error("Falha ao iniciar o servidor:", erro);
   process.exit(1);
 });
+
 
