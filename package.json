@@ -4,7 +4,9 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --watch src"
+    "prestart": "node swagger.js",
+    "start": "nodemon --watch src",
+    "swagger-autogen": "node swagger.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +18,7 @@
     "express": "^4.19.2",
     "mysql2": "^3.11.0",
     "nodemon": "^3.1.4",
+    "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "yup": "^1.4.0"

@@ -27,7 +27,7 @@ class Repositorio {
     try {
       const [rows] = await connection.query(query, [id]);
       await connection.release();
-      return rows[0];
+      return rows; // Retorna o array completo
     } catch (erro) {
       console.error('Erro ao buscar usuário por ID:', erro);
       throw erro;
@@ -48,18 +48,21 @@ class Repositorio {
     }
   }
 
-  // U - Update
-  async atualizarUsuario(id, nome, email) {
-    const connection = await getConexao();
-    const query = 'UPDATE usuarios SET nome = ?, email = ? WHERE id = ? AND deleted_at IS NULL';
-    try {
-      await connection.query(query, [nome, email, id]);
-      await connection.release();
-    } catch (erro) {
-      console.error('Erro ao atualizar usuário:', erro);
-      throw erro;
-    }
+// U - Update
+async atualizarUsuario(id, usuario) {
+  const connection = await getConexao();
+  const query = 'UPDATE usuarios SET nome = ?, email = ? WHERE id = ? AND deleted_at IS NULL';
+  try {
+    console.log("Executando query de atualização com:", { id, nome: usuario.nome, email: usuario.email });
+    const [result] = await connection.query(query, [usuario.nome, usuario.email, id]);
+    console.log("Resultado da atualização:", result);
+    await connection.release();
+    return result;
+  } catch (erro) {
+    console.error('Erro ao atualizar usuário:', erro);
+    throw erro;
   }
+}
 
   // D - Delete (Soft Delete - atualiza deleted_at)
   async deletarUsuario(id) {

@@ -1,0 +1,2549 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Questionário",
+    "description": "API para gerenciar questionários, usuários, perguntas e respostas",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3333",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Usuários",
+      "description": "Endpoints relacionados a usuários"
+    },
+    {
+      "name": "Perguntas",
+      "description": "Endpoints relacionados a perguntas"
+    },
+    {
+      "name": "Opções",
+      "description": "Endpoints relacionados a opções de resposta"
+    },
+    {
+      "name": "Questionários Respondidos",
+      "description": "Endpoints relacionados a questionários respondidos"
+    },
+    {
+      "name": "Respostas",
+      "description": "Endpoints relacionados a respostas individuais"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/usuarios/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/usuarios": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/perguntas": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/perguntas/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/opcoes": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_pergunta": {
+                  "example": "any"
+                },
+                "descricao": {
+                  "example": "any"
+                },
+                "pontos": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/opcoes/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "example": "any"
+                },
+                "pontos": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/quest_respondidas": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/quest_respondidas/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/quest_respondidas/{id}/finalizar": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/respostas": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_pergunta": {
+                  "example": "any"
+                },
+                "id_opcao": {
+                  "example": "any"
+                },
+                "id_quest": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/respostas/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_pergunta": {
+                  "example": "any"
+                },
+                "id_opcao": {
+                  "example": "any"
+                },
+                "id_quest": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "components": {
+      "type": "object",
+      "properties": {
+        "schemas": {
+          "type": "object",
+          "properties": {
+            "Usuario": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "object"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    },
+                    "nome": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        }
+                      }
+                    },
+                    "email": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Pergunta": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "object"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    },
+                    "descricao": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Opcao": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "object"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    },
+                    "descricao": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        }
+                      }
+                    },
+                    "pontos": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    },
+                    "id_pergunta": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "QuestionarioRespondido": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "object"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    },
+                    "id_usuario": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    },
+                    "datahorainicio": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        },
+                        "format": {
+                          "type": "string",
+                          "example": "date-time"
+                        }
+                      }
+                    },
+                    "datahorafim": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        },
+                        "format": {
+                          "type": "string",
+                          "example": "date-time"
+                        }
+                      }
+                    },
+                    "pontuacao": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Resposta": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "object"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    },
+                    "id_pergunta": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    },
+                    "id_opcao": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    },
+                    "id_quest": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "properties": {
+        "/usuarios": {
+          "type": "object",
+          "properties": {
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Usuários"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca todos os usuários"
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Lista de usuários retornada com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "example": "array"
+                                    },
+                                    "items": {
+                                      "$ref": "#/components/schemas/Usuario"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/usuarios/{id}": {
+          "type": "object",
+          "properties": {
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Usuários"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca um usuário pelo ID"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Usuário encontrado com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "$ref": "#/components/schemas/Usuario"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "patch": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Usuários"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Atualiza um usuário"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "requestBody": {
+                  "type": "object",
+                  "properties": {
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "application/json": {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "$ref": "#/components/schemas/Usuario"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Usuário atualizado com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "delete": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Usuários"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Deleta um usuário"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Usuário deletado com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/perguntas": {
+          "type": "object",
+          "properties": {
+            "post": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Perguntas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Cria uma nova pergunta"
+                },
+                "requestBody": {
+                  "type": "object",
+                  "properties": {
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "application/json": {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "$ref": "#/components/schemas/Pergunta"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "201": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Pergunta criada com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Perguntas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca todas as perguntas"
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Lista de perguntas retornada com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "example": "array"
+                                    },
+                                    "items": {
+                                      "$ref": "#/components/schemas/Pergunta"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/perguntas/{id}": {
+          "type": "object",
+          "properties": {
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Perguntas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca uma pergunta pelo ID"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Pergunta encontrada com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "$ref": "#/components/schemas/Pergunta"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "patch": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Perguntas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Atualiza uma pergunta"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "requestBody": {
+                  "type": "object",
+                  "properties": {
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "application/json": {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "$ref": "#/components/schemas/Pergunta"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Pergunta atualizada com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "delete": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Perguntas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Deleta uma pergunta"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Pergunta deletada com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/opcoes": {
+          "type": "object",
+          "properties": {
+            "post": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Opções"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Cria uma nova opção"
+                },
+                "requestBody": {
+                  "type": "object",
+                  "properties": {
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "application/json": {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "$ref": "#/components/schemas/Opcao"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "201": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Opção criada com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Opções"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca todas as opções"
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Lista de opções retornada com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "example": "array"
+                                    },
+                                    "items": {
+                                      "$ref": "#/components/schemas/Opcao"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/opcoes/{id}": {
+          "type": "object",
+          "properties": {
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Opções"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca uma opção pelo ID"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Opção encontrada com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "$ref": "#/components/schemas/Opcao"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "patch": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Opções"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Atualiza uma opção"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "requestBody": {
+                  "type": "object",
+                  "properties": {
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "application/json": {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "$ref": "#/components/schemas/Opcao"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Opção atualizada com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "delete": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Opções"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Deleta uma opção"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Opção deletada com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/quest_respondidas": {
+          "type": "object",
+          "properties": {
+            "post": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Questionários Respondidos"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Cria um novo questionário respondido"
+                },
+                "requestBody": {
+                  "type": "object",
+                  "properties": {
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "application/json": {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "$ref": "#/components/schemas/QuestionarioRespondido"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "201": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Questionário respondido criado com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Questionários Respondidos"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca todos os questionários respondidos"
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Lista de questionários respondidos retornada com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "example": "array"
+                                    },
+                                    "items": {
+                                      "$ref": "#/components/schemas/QuestionarioRespondido"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/quest_respondidas/{id}": {
+          "type": "object",
+          "properties": {
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Questionários Respondidos"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca um questionário respondido pelo ID"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Questionário respondido encontrado com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "$ref": "#/components/schemas/QuestionarioRespondido"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "patch": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Questionários Respondidos"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Atualiza um questionário respondido"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "requestBody": {
+                  "type": "object",
+                  "properties": {
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "application/json": {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "$ref": "#/components/schemas/QuestionarioRespondido"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Questionário respondido atualizado com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "delete": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Questionários Respondidos"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Deleta um questionário respondido"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Questionário respondido deletado com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/quest_respondidas/{id}/finalizar": {
+          "type": "object",
+          "properties": {
+            "put": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Questionários Respondidos"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Finaliza um questionário respondido"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Questionário respondido finalizado com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/respostas": {
+          "type": "object",
+          "properties": {
+            "post": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Respostas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Cria uma nova resposta"
+                },
+                "requestBody": {
+                  "type": "object",
+                  "properties": {
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "application/json": {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "$ref": "#/components/schemas/Resposta"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "201": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Resposta criada com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Respostas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca todas as respostas"
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Lista de respostas retornada com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "example": "array"
+                                    },
+                                    "items": {
+                                      "$ref": "#/components/schemas/Resposta"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/respostas/{id}": {
+          "type": "object",
+          "properties": {
+            "get": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Respostas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Busca uma resposta pelo ID"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Resposta encontrada com sucesso"
+                        },
+                        "content": {
+                          "type": "object",
+                          "properties": {
+                            "application/json": {
+                              "type": "object",
+                              "properties": {
+                                "schema": {
+                                  "$ref": "#/components/schemas/Resposta"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "patch": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Respostas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Atualiza uma resposta"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "requestBody": {
+                  "type": "object",
+                  "properties": {
+                    "required": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "content": {
+                      "type": "object",
+                      "properties": {
+                        "application/json": {
+                          "type": "object",
+                          "properties": {
+                            "schema": {
+                              "$ref": "#/components/schemas/Resposta"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Resposta atualizada com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "delete": {
+              "type": "object",
+              "properties": {
+                "tags": {
+                  "type": "array",
+                  "example": [
+                    "Respostas"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "summary": {
+                  "type": "string",
+                  "example": "Deleta uma resposta"
+                },
+                "parameters": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "in": {
+                        "type": "string",
+                        "example": "path"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "id"
+                      },
+                      "required": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "example": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "type": "object",
+                  "properties": {
+                    "200": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "example": "Resposta deletada com sucesso"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

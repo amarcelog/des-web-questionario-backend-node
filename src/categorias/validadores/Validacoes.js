@@ -5,6 +5,7 @@ export class Validacoes {
     this.repositorio = repositorio;
   }
 
+  // Validação para a criação de usuário
   async validarCriacaoUsuario(nome, email) {
     const schema = Yup.object().shape({
       nome: Yup.string()
@@ -28,18 +29,29 @@ export class Validacoes {
       return { errors };
     }
   }
-  // Validações para Perguntas
-  async validarPergunta(descricao) {
-    const schema = Yup.object().shape({
-      descricao: Yup.string().min(8, 'A pergunta deve ter no mínimo 8 caracteres').required('Descrição é obrigatória')
-    });
 
-    try {
-      await schema.validate({ descricao }, { abortEarly: false });
-      return [];
-    } catch (error) {
-      return error.errors;
+  // Validação para atualização de usuário (nome e email são opcionais)
+  validarAtualizacaoUsuario(dados) {
+    const errors = {};
+  
+    if (dados.nome !== undefined) {
+      if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(dados.nome)) {
+        errors.nome = 'Nome deve conter apenas letras, espaços e acentos';
+      } else if (dados.nome.length > 100) {
+        errors.nome = 'Nome deve ter no máximo 100 caracteres';
+      }
     }
+  
+    if (dados.email !== undefined) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dados.email)) {
+        errors.email = 'Email inválido';
+      } else if (dados.email.length > 100) {
+        errors.email = 'Email deve ter no máximo 100 caracteres';
+      }
+    }
+  
+    console.log("Resultado da validação:", errors);
+    return { errors };
   }
 
   // Validações para Pergunta Opções

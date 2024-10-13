@@ -33,10 +33,10 @@ criarUsuario = async (req, res) => {
   buscarUsuarioPorId = async (req, res) => {
     try {
       const usuario = await this.repositorio.buscarUsuarioPorId(req.params.id);
-      if (!usuario) {
+      if (!usuario.length) {
         res.status(404).json({ erro: 'Usuário não encontrado' });
       } else {
-        res.json(usuario);
+        res.json(usuario[0]);
       }
     } catch (error) {
       console.error(error);
@@ -54,24 +54,62 @@ criarUsuario = async (req, res) => {
     }
   };
 
-  atualizarUsuario = async (req, res) => {
-    try {
-      const id = req.params.id;
-      const { nome, email } = req.body;
+// Função de seta para preservar o contexto "this"
+atualizarUsuario = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log("ID recebido:", id);
+    
+    // Busca o usuário atual no banco de dados
+    const usuarios = await this.repositorio.buscarUsuarioPorId(id);
+    console.log("Resultado da busca:", usuarios);
 
-      const resultado = await this.validacoes.validarUsuario(nome, email, id);
-
-      if (resultado.errors) {
-        return res.status(400).json({ erros: resultado.errors });
-      }
-
-      await this.repositorio.atualizarUsuario(id, resultado);
-      res.status(200).json({ mensagem: 'Usuário atualizado com sucesso' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ erro: 'Erro ao atualizar usuário' });
+    if (!usuarios || usuarios.length === 0) {
+      return res.status(404).json({ mensagem: "Usuário não encontrado" });
     }
-  };
+
+    const [usuario] = usuarios;
+    console.log("Usuário antes da atualização:", usuario);
+
+    const body = Array.isArray(req.body) ? req.body[0] : req.body;
+    console.log("Body recebido:", body);
+   
+    // Tentativa de atualização
+    const usuarioAtualizado = { ...usuario };
+    if (body.nome !== undefined) {
+      usuarioAtualizado.nome = body.nome;
+      console.log("Nome atualizado para:", body.nome);
+    }
+    if (body.email !== undefined) {
+      usuarioAtualizado.email = body.email;
+      console.log("Email atualizado para:", body.email);
+    }
+
+    console.log("Usuário após tentativa de atualização:", usuarioAtualizado);
+
+    // Valida apenas os campos que estão sendo atualizados
+    const camposParaValidar = {};
+    if (body.nome !== undefined) camposParaValidar.nome = usuarioAtualizado.nome;
+    if (body.email !== undefined) camposParaValidar.email = usuarioAtualizado.email;
+
+    const { errors } = this.validacoes.validarAtualizacaoUsuario(camposParaValidar);
+    
+    if (errors && Object.keys(errors).length > 0) {
+      console.log("Erros de validação:", errors);
+      return res.status(400).json({ erros: errors });
+    }
+
+    // Atualiza o usuário no repositório
+    console.log("Enviando para atualização no repositório:", usuarioAtualizado);
+    await this.repositorio.atualizarUsuario(id, usuarioAtualizado);
+
+    console.log("Usuário após atualização no repositório:", usuarioAtualizado);
+    res.json(usuarioAtualizado);
+  } catch (error) {
+    console.error("Erro durante a atualização:", error);
+    res.status(500).json({ erro: 'Erro ao atualizar usuário' });
+  }
+}
 
   deletarUsuario = async (req, res) => {
     try {
@@ -286,7 +324,7 @@ criarUsuario = async (req, res) => {
     }
   };
 
-  deletarQuestRespondida = async (req, res) => {
+  criarQuestionarioRespondido = async (req, res) => {
     try {
       await this.repositorio.deletarQuestRespondida(req.params.id);
       res.status(200).json({ mensagem: 'Questão respondida deletada com sucesso' });

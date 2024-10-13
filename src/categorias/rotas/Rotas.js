@@ -1,51 +1,44 @@
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
-import swaggerOptions from '../../swaggerConfig.js';
-import controllers from '../controllers/Controllers.js'; // Importa a instância do Controllers
+import Controllers from '../controllers/Controllers.js';
 
 const router = express.Router();
 
 // Rotas para usuários
-router.post('/usuarios', controllers.criarUsuario);
-router.get('/usuarios/:id', controllers.buscarUsuarioPorId);
-router.get('/usuarios', controllers.buscarTodosUsuarios);
-router.patch('/usuarios/:id', controllers.atualizarUsuario);
-router.delete('/usuarios/:id', controllers.deletarUsuario);
+router.post('/usuarios', Controllers.criarUsuario);
+router.get('/usuarios/:id', Controllers.buscarUsuarioPorId);
+router.get('/usuarios', Controllers.buscarTodosUsuarios);
+router.patch('/usuarios/:id', Controllers.atualizarUsuario);
+router.delete('/usuarios/:id', Controllers.deletarUsuario);
 
 // Rotas para perguntas
-router.post('/perguntas', controllers.criarPergunta);
-router.get('/perguntas/:id', controllers.buscarPerguntaPorId);
-router.get('/perguntas', controllers.buscarTodasPerguntas);
-router.patch('/perguntas/:id', controllers.atualizarPergunta);
-router.delete('/perguntas/:id', controllers.deletarPergunta);
+router.post('/perguntas', Controllers.criarPergunta);
+router.get('/perguntas/:id', Controllers.buscarPerguntaPorId);
+router.get('/perguntas', Controllers.buscarTodasPerguntas);
+router.patch('/perguntas/:id', Controllers.atualizarPergunta);
+router.delete('/perguntas/:id', Controllers.deletarPergunta);
 
 // Rotas para opções
-router.post('/opcoes', controllers.criarOpcao);
-router.get('/opcoes/:id', controllers.buscarOpcaoPorId);
-router.get('/opcoes', controllers.buscarTodasOpcoes);
-router.patch('/opcoes/:id', controllers.atualizarOpcao);
-router.delete('/opcoes/:id', controllers.deletarOpcao);
+router.post('/opcoes', Controllers.criarOpcao);
+router.get('/opcoes/:id', Controllers.buscarOpcaoPorId);
+router.get('/opcoes', Controllers.buscarTodasOpcoes);
+router.patch('/opcoes/:id', Controllers.atualizarOpcao);
+router.delete('/opcoes/:id', Controllers.deletarOpcao);
 
-// Rotas para questões respondidas
-router.post('/quest_respondidas', controllers.criarQuestRespondida);
-router.get('/quest_respondidas/:id', controllers.buscarQuestRespondidaPorId);
-router.get('/quest_respondidas', controllers.buscarTodosQuestRespondidas);
-router.patch('/quest_respondidas/:id', controllers.atualizarQuestionario);
-router.delete('/quest_respondidas/:id', controllers.deletarQuestRespondida);
-router.put('/quest_respondidas/:id/finalizar', controllers.finalizarQuestionario);
+// Rotas para questionários respondidos
+router.post('/quest_respondidas', Controllers.criarQuestionarioRespondido);
+router.get('/quest_respondidas/:id', Controllers.buscarQuestRespondidaPorId);
+router.get('/quest_respondidas', Controllers.buscarTodosQuestRespondidas);
+router.patch('/quest_respondidas/:id', Controllers.criarQuestionarioRespondido);
+router.delete('/quest_respondidas/:id', Controllers.criarQuestionarioRespondido);
+router.put('/quest_respondidas/:id/finalizar', Controllers.criarQuestionarioRespondido);
 
 // Rotas para respostas
-router.post('/respostas', controllers.criarResposta);
-router.get('/respostas/:id', controllers.buscarRespostaPorId);
-router.get('/respostas', controllers.buscarTodasRespostas);
-router.patch('/respostas/:id', controllers.atualizarResposta);
-router.delete('/respostas/:id', controllers.deletarResposta);
-
-// Swagger
-router.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
+router.post('/respostas', Controllers.criarResposta);
+router.get('/respostas/:id', Controllers.buscarRespostaPorId);
+router.get('/respostas', Controllers.buscarTodasRespostas);
+router.patch('/respostas/:id', Controllers.atualizarResposta);
+router.delete('/respostas/:id', Controllers.deletarResposta);
 
 export default router;
-
-
 
 
