@@ -3,6 +3,7 @@ import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 import router from "./categorias/rotas/Rotas.js";
 import cors from 'cors';
+import usuariosrouter from "./categorias/rotas/usuariosRotas.js";
 
 async function run() {
   const app = express();
@@ -23,7 +24,7 @@ async function run() {
   });
 
   // Usar as rotas definidas em Rotas.js
-  app.use('/api', router);
+  app.use('/api', router, usuariosrouter);
 
   // ... (resto do seu código)
 

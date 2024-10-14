@@ -3,13 +3,6 @@ import Controllers from '../controllers/Controllers.js';
 
 const router = express.Router();
 
-// Rotas para usuários
-router.post('/usuarios', Controllers.criarUsuario);
-router.get('/usuarios/:id', Controllers.buscarUsuarioPorId);
-router.get('/usuarios', Controllers.buscarTodosUsuarios);
-router.patch('/usuarios/:id', Controllers.atualizarUsuario);
-router.delete('/usuarios/:id', Controllers.deletarUsuario);
-
 // Rotas para perguntas
 router.post('/perguntas', Controllers.criarPergunta);
 router.get('/perguntas/:id', Controllers.buscarPerguntaPorId);
