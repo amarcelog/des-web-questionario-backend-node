@@ -24,7 +24,7 @@ async function run() {
   });
 
   // Usar as rotas definidas em Rotas.js
-  app.use('/api', router, usuariosrouter);
+  app.use('/', router, usuariosrouter);
 
   // ... (resto do seu código)
 

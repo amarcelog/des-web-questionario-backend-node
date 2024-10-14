@@ -9,7 +9,7 @@ usuariosrouter.get('/usuariosid/:id', UsuariosControllers.buscarUsuarioPorId);
 usuariosrouter.get('/usuariosinativos', UsuariosControllers.buscarUsuariosInativos);
 usuariosrouter.get('/usuariosativos', UsuariosControllers.buscarUsuariosAtivos);
 usuariosrouter.get('/todosusuarios', UsuariosControllers.buscarTodosUsuarios);
-usuariosrouter.patch('/usuarios/:id', UsuariosControllers.atualizarUsuario);
-usuariosrouter.delete('/usuarios/:id', UsuariosControllers.deletarUsuario);
+usuariosrouter.patch('/atualizarusuarios/:id', UsuariosControllers.atualizarUsuario);
+usuariosrouter.delete('/apagarusuarios/:id', UsuariosControllers.deletarUsuario);
 
 export default usuariosrouter;

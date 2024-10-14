@@ -6,7 +6,7 @@
     "version": "1.0.0"
   },
   "host": "localhost:3333",
-  "basePath": "/api",
+  "basePath": "/",
   "tags": [
     {
       "name": "Usuários",

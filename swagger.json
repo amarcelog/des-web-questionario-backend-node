@@ -12,7 +12,7 @@
     }
   ],
   "paths": {
-    "/usuarios": {
+    "/criarusuarios": {
       "post": {
         "tags": [
           "Usuários"
@@ -33,7 +33,9 @@
             "description": "Usuário criado com sucesso"
           }
         }
-      },
+      }
+    },
+    "/todosusuarios": {
       "get": {
         "tags": [
           "Usuários"
@@ -56,7 +58,7 @@
         }
       }
     },
-    "/usuarios/{id}": {
+    "/usuariosid/{id}": {
       "get": {
         "tags": [
           "Usuários"
@@ -84,7 +86,55 @@
             }
           }
         }
-      },
+      }
+    },
+    "/usuariosinativos": {
+      "get": {
+        "tags": [
+          "Usuários"
+        ],
+        "summary": "Busca usuários inativos",
+        "responses": {
+          "200": {
+            "description": "Lista de usuários inativos retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuariosativos": {
+      "get": {
+        "tags": [
+          "Usuários"
+        ],
+        "summary": "Busca usuários ativos",
+        "responses": {
+          "200": {
+            "description": "Lista de usuários ativos retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/atualizarusuarios/{id}": {
       "patch": {
         "tags": [
           "Usuários"
@@ -115,12 +165,14 @@
             "description": "Usuário atualizado com sucesso"
           }
         }
-      },
+      }
+    },
+    "/apagarusuarios/{id}": {
       "delete": {
         "tags": [
           "Usuários"
         ],
-        "summary": "Deleta um usuário",
+        "summary": "Deleta um usuário (softdelete)",
         "parameters": [
           {
             "in": "path",
