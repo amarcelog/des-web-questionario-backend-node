@@ -16,14 +16,20 @@ export class PerguntasValidacoes {
 
     try {
       await schema.validate({ descricao }, { abortEarly: false });
-      return { descricao };
-    } catch (error) {
-      const errors = {};
-      error.inner.forEach((err) => {
-        errors[err.path] = err.message;
-      });
-      return { errors };
-    }
-  }
+      return {};
+      
+   } catch (error) {
+
+     const errors={};
+
+     error.inner.forEach((err)=>{
+         errors[err.path]= err.message;
+     });
+
+       return errors;
+
+ }
 }
+}
+
 

@@ -30,22 +30,26 @@ class PerguntasRepositorio {
   // R - Read
   async buscarPerguntaPorId(id) {
     const connection = await getConexao();
-    const query = 'SELECT * FROM perguntas';
+    const query = 'SELECT * FROM perguntas WHERE id = ?'; // Corrigido: adicionada a condição WHERE
     try {
       const [rows] = await connection.query(query, [id]);
-      await connection.release();
       return rows[0];
-    } catch (erro) {
-      console.error('Erro ao buscar pergunta por ID:', erro);
-      throw erro;
-    }
-    finally {
-
-        if(connection){
-           connection.release(); 
-        }
-      }
+      
+   } catch (erro) {
+  
+     console.error('Erro ao buscar pergunta por ID:', erro);
+     
+     throw erro;
+  
+   } finally {
+  
+       if(connection){
+          connection.release(); 
+       }
+    
+   }
   }
+  
 
   // R - Read - ALL
   async buscarTodasPerguntas() {
@@ -70,7 +74,7 @@ class PerguntasRepositorio {
   // U - Update
   async atualizarPergunta(id, descricao) {
     const connection = await getConexao();
-    const query = 'UPDATE perguntas SET descricao = ? WHERE id = ? AND deleted_at IS NULL';
+    const query = 'UPDATE perguntas SET descricao = ?';
     try {
       await connection.query(query, [descricao, id]);
       await connection.release();
