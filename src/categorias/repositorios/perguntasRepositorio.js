@@ -71,24 +71,28 @@ class PerguntasRepositorio {
       }
   }
 
-  // U - Update
-  async atualizarPergunta(id, descricao) {
-    const connection = await getConexao();
-    const query = 'UPDATE perguntas SET descricao = ?';
-    try {
-      await connection.query(query, [descricao, id]);
-      await connection.release();
-    } catch (erro) {
-      console.error('Erro ao atualizar pergunta:', erro);
-      throw erro;
-    }
-    finally {
+// U - Update
+async atualizarPergunta(id, descricao) {
+  const connection = await getConexao();
+  const query = 'UPDATE perguntas SET descricao = ? WHERE id = ?'; 
+  try {
+    await connection.query(query, [descricao, id]);
+    return; // Não é necessário retornar nada específico
 
-        if(connection){
-           connection.release(); 
-        }
-      }
-  }
+ } catch (erro) {
+
+   console.error('Erro ao atualizar pergunta:', erro);
+   
+   throw erro;
+
+ } finally {
+
+     if(connection){
+        connection.release(); 
+     }
+  
+ }
+}
 
   // D - Delete (Soft Delete - atualiza deleted_at)
   async deletarPergunta(id) {

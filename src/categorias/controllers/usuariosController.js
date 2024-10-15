@@ -93,21 +93,28 @@ class UsuariosControllers {
     try {
       const id = req.params.id;
       console.log("ID recebido:", id);
-
+  
       // Busca o usuário atual no banco de dados
       const usuarios = await this.repositorio.buscarUsuarioPorId(id);
       console.log("Resultado da busca:", usuarios);
-
+  
       if (!usuarios || usuarios.length === 0) {
         return res.status(404).json({ mensagem: "Usuário não encontrado" });
       }
-
+  
       const [usuario] = usuarios;
       console.log("Usuário antes da atualização:", usuario);
-
+  
+      // Verificação adicional para apresentar erro caso o usuário existente esteja inativo
+      if (usuario.deleted_at !== null) {
+        return res.status(400).json({
+          erro: "Usuário já existente inativo, ative antes de atualizar",
+        });
+      }
+  
       const body = Array.isArray(req.body) ? req.body[0] : req.body;
       console.log("Body recebido:", body);
-
+  
       // Tentativa de atualização
       const usuarioAtualizado = { ...usuario };
       if (body.nome !== undefined) {
@@ -118,31 +125,31 @@ class UsuariosControllers {
         usuarioAtualizado.email = body.email;
         console.log("Email atualizado para:", body.email);
       }
-
+  
       console.log("Usuário após tentativa de atualização:", usuarioAtualizado);
-
+  
       // Valida apenas os campos que estão sendo atualizados
       const camposParaValidar = {};
       if (body.nome !== undefined)
         camposParaValidar.nome = usuarioAtualizado.nome;
       if (body.email !== undefined)
         camposParaValidar.email = usuarioAtualizado.email;
-
+  
       const { errors } =
         this.validacoes.validarAtualizacaoUsuario(camposParaValidar);
-
+  
       if (errors && Object.keys(errors).length > 0) {
         console.log("Erros de validação:", errors);
         return res.status(400).json({ erros: errors });
       }
-
+  
       // Atualiza o usuário no repositório
       console.log(
         "Enviando para atualização no repositório:",
         usuarioAtualizado
       );
       await this.repositorio.atualizarUsuario(id, usuarioAtualizado);
-
+  
       console.log(
         "Usuário após atualização no repositório:",
         usuarioAtualizado
@@ -153,6 +160,7 @@ class UsuariosControllers {
       res.status(500).json({ erro: "Erro ao atualizar usuário" });
     }
   };
+  
 
   deletarUsuario = async (req, res) => {
     try {
