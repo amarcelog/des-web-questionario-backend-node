@@ -3,13 +3,6 @@ import Controllers from '../controllers/Controllers.js';
 
 const router = express.Router();
 
-// Rotas para perguntas
-router.post('/perguntas', Controllers.criarPergunta);
-router.get('/perguntas/:id', Controllers.buscarPerguntaPorId);
-router.get('/perguntas', Controllers.buscarTodasPerguntas);
-router.patch('/perguntas/:id', Controllers.atualizarPergunta);
-router.delete('/perguntas/:id', Controllers.deletarPergunta);
-
 // Rotas para opções
 router.post('/opcoes', Controllers.criarOpcao);
 router.get('/opcoes/:id', Controllers.buscarOpcaoPorId);

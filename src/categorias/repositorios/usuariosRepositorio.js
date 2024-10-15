@@ -43,6 +43,12 @@ class UsuariosRepositorio {
       console.error('Erro ao buscar usuário por ID:', erro);
       throw erro;
     }
+    finally {
+
+      if(connection){
+         connection.release(); 
+      }
+    }
   }
 
     // R - Read 2/4 - Inativos
@@ -56,6 +62,12 @@ class UsuariosRepositorio {
       } catch (erro) {
         console.error('Erro ao buscar os usuários inativos:', erro);
         throw erro;
+      }
+      finally {
+
+        if(connection){
+           connection.release(); 
+        }
       }
     }
 
@@ -71,6 +83,12 @@ class UsuariosRepositorio {
       console.error('Erro ao buscar os usuários ativos:', erro);
       throw erro;
     }
+    finally {
+
+      if(connection){
+         connection.release(); 
+      }
+    }
   }
 
   // R - Read 4/4- ALL
@@ -84,6 +102,12 @@ class UsuariosRepositorio {
     } catch (erro) {
       console.error('Erro ao buscar todos os usuários:', erro);
       throw erro;
+    }
+    finally {
+
+      if(connection){
+         connection.release(); 
+      }
     }
   }
 
@@ -101,6 +125,12 @@ async atualizarUsuario(id, usuario) {
     console.error('Erro ao atualizar usuário:', erro);
     throw erro;
   }
+  finally {
+
+    if(connection){
+       connection.release(); 
+    }
+  }
 }
 
   // D - Delete (Soft Delete - atualiza deleted_at)
@@ -113,6 +143,12 @@ async atualizarUsuario(id, usuario) {
     } catch (erro) {
       console.error('Erro ao deletar usuário:', erro);
       throw erro;
+    }
+    finally {
+
+      if(connection){
+         connection.release(); 
+      }
     }
   }
 }
