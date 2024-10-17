@@ -50,7 +50,6 @@ class PerguntasRepositorio {
    }
   }
   
-
   // R - Read - ALL
   async buscarTodasPerguntas() {
     const connection = await getConexao();

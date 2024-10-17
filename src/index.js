@@ -5,6 +5,7 @@ import router from "./categorias/rotas/Rotas.js";
 import usuariosrouter from "./categorias/rotas/usuariosRotas.js";
 import perguntasrouter from "./categorias/rotas/perguntasRotas.js";
 import cors from 'cors';
+import opcoesrouter from "./categorias/rotas/opcoesRotas.js";
 
 async function run() {
   const app = express();
@@ -25,7 +26,7 @@ async function run() {
   });
 
   // Usar as rotas definidas em Rotas.js
-  app.use('/', router, usuariosrouter, perguntasrouter);
+  app.use('/', router, usuariosrouter, perguntasrouter, opcoesrouter);
 
   // ... (resto do seu código)
 

@@ -7,74 +7,7 @@ class Controllers {
     this.validacoes = new Validacoes(this.repositorio);
     console.log('Repositorio criado:', this.repositorio);
   }
-  // Métodos para opções
-  criarOpcao = async (req, res) => {
-    try {
-      const erros = await this.validacoes.validarPerguntaOpcao(req.body.id_pergunta, req.body.descricao, req.body.pontos);
-
-      if (Object.keys(erros).length > 0) {
-        return res.status(400).json({ erros });
-      }
-
-      const id = await this.repositorio.criarOpcao(req.body.id_pergunta, req.body.descricao, req.body.pontos);
-      res.status(201).json({ id });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ erro: 'Erro ao criar opção' });
-    }
-  };
-
-  buscarOpcaoPorId = async (req, res) => {
-    try {
-      const opcao = await this.repositorio.buscarOpcaoPorId(req.params.id);
-      if (!opcao) {
-        res.status(404).json({ erro: 'Opção não encontrada' });
-      } else {
-        res.json(opcao);
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ erro: 'Erro ao buscar opção' });
-    }
-  };
-
-  buscarTodasOpcoes = async (req, res) => {
-    try {
-      const opcoes = await this.repositorio.buscarTodasOpcoes();
-      res.json(opcoes);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ erro: 'Erro ao buscar todas as opções' });
-    }
-  };
-
-  atualizarOpcao = async (req, res) => {
-    try {
-      const erros = await this.validacoes.validarPerguntaOpcao(req.params.id, req.body.descricao, req.body.pontos);
-
-      if (Object.keys(erros).length > 0) {
-        return res.status(400).json({ erros });
-      }
-
-      await this.repositorio.atualizarOpcao(req.params.id, req.body);
-      res.status(200).json({ mensagem: 'Opção atualizada com sucesso' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ erro: 'Erro ao atualizar opção' });
-    }
-  };
-
-  deletarOpcao = async (req, res) => {
-    try {
-      await this.repositorio.deletarOpcao(req.params.id);
-      res.status(200).json({ mensagem: 'Opção deletada com sucesso' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ erro: 'Erro ao deletar opção' });
-    }
-  };
-
-  // Métodos para questões respondidas
+   // Métodos para questões respondidas
   criarQuestRespondida = async (req, res) => {
     try {
       const erros = await this.validacoes.validarQuestRespondida(req.body.id_usuario);

@@ -3,13 +3,6 @@ import Controllers from '../controllers/Controllers.js';
 
 const router = express.Router();
 
-// Rotas para opções
-router.post('/opcoes', Controllers.criarOpcao);
-router.get('/opcoes/:id', Controllers.buscarOpcaoPorId);
-router.get('/opcoes', Controllers.buscarTodasOpcoes);
-router.patch('/opcoes/:id', Controllers.atualizarOpcao);
-router.delete('/opcoes/:id', Controllers.deletarOpcao);
-
 // Rotas para questionários respondidos
 router.post('/quest_respondidas', Controllers.criarQuestionarioRespondido);
 router.get('/quest_respondidas/:id', Controllers.buscarQuestRespondidaPorId);

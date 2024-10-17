@@ -1,7 +1,7 @@
 import UsuariosRepositorio from "../repositorios/usuariosRepositorio.js";
 import { UsuariosValidacoes } from "../validadores/usuariosValidacoes.js";
 
-class UsuariosControllers {
+class UsuariosController {
   constructor() {
     this.repositorio = new UsuariosRepositorio();
     this.validacoes = new UsuariosValidacoes(this.repositorio);
@@ -173,4 +173,4 @@ class UsuariosControllers {
   };
 }
 
-export default new UsuariosControllers();
+export default new UsuariosController();
