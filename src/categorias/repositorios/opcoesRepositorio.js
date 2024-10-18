@@ -19,6 +19,12 @@ class OpcoesRepositorio {
       console.error('Erro ao criar opção:', erro);
       throw erro;
     }
+    finally {
+
+      if(connection){
+         connection.release(); 
+      }
+    }
   }
 
   // R - Read
@@ -32,6 +38,12 @@ class OpcoesRepositorio {
     } catch (erro) {
       console.error('Erro ao buscar opção por ID:', erro);
       throw erro;
+    }
+    finally {
+
+      if(connection){
+         connection.release(); 
+      }
     }
   }
 
@@ -47,6 +59,12 @@ class OpcoesRepositorio {
       console.error('Erro ao buscar todas as opções:', erro);
       throw erro;
     }
+    finally {
+
+      if(connection){
+         connection.release(); 
+      }
+    }
   }
 
 // U - Update
@@ -59,6 +77,12 @@ async atualizarOpcao(id, id_pergunta, descricao, pontos) {
   } catch (erro) {
     console.error('Erro ao atualizar opção:', erro);
     throw erro;
+  }
+  finally {
+
+    if(connection){
+       connection.release(); 
+    }
   }
 }
 
@@ -74,6 +98,12 @@ async atualizarOpcao(id, id_pergunta, descricao, pontos) {
       console.error('Erro ao deletar opção:', erro);
       throw erro;
     }
+    finally {
+
+      if(connection){
+         connection.release(); 
+      }
+    }
   }
   async ativarOpcao(id) {
     const connection = await getConexao();
@@ -84,6 +114,12 @@ async atualizarOpcao(id, id_pergunta, descricao, pontos) {
     } catch (erro) {
       console.error('Erro ao ativar opção:', erro);
       throw erro;
+    }
+    finally {
+
+      if(connection){
+         connection.release(); 
+      }
     }
   }
 }

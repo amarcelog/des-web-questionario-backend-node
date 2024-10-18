@@ -1,11 +1,12 @@
 import express from "express";
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
-import router from "./categorias/rotas/Rotas.js";
+import cors from 'cors';
 import usuariosrouter from "./categorias/rotas/usuariosRotas.js";
 import perguntasrouter from "./categorias/rotas/perguntasRotas.js";
-import cors from 'cors';
 import opcoesrouter from "./categorias/rotas/opcoesRotas.js";
+import respostasrouter from "./categorias/rotas/respostasRotas.js";
+import questionariorouter from "./categorias/rotas/questionariosRotas.js";
 
 async function run() {
   const app = express();
@@ -26,7 +27,7 @@ async function run() {
   });
 
   // Usar as rotas definidas em Rotas.js
-  app.use('/', router, usuariosrouter, perguntasrouter, opcoesrouter);
+  app.use('/', usuariosrouter, perguntasrouter, opcoesrouter, respostasrouter, questionariorouter);
 
   // ... (resto do seu código)
 
